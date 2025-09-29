@@ -50,6 +50,7 @@ main.py
 - **Cross-Platform**: Works on Linux/Mac/WSL, Windows CMD accessible via WSL
 - **Clean Output**: Terminal escape sequences automatically filtered
 - **Project Support**: Switch between projects with saved state
+- **Dynamic Environment**: Project-specific .env files automatically loaded for exec commands
 - **Error Handling**: Graceful degradation for missing features
 
 ## Available Tools (32)
@@ -151,6 +152,25 @@ mcp__pty__serial-message(message="AT")
 mcp__pty__serial-close()
 ```
 
+### Dynamic Environment (Project-Specific)
+```python
+# Activate project with .env file
+mcp__pty__activate(project_name="ics")
+# Project's .env file automatically loaded
+
+# Exec commands use project environment
+mcp__pty__exec(command="echo $DATABASE_URL")  
+# Returns: postgresql://ics_user:password@localhost:5432/ics_db
+
+# Switch to different project
+mcp__pty__activate(project_name="memory-service")
+mcp__pty__exec(command="echo $DATABASE_URL")
+# Returns: postgresql://memory@localhost/memory_db
+
+# Note: PTY/bash sessions maintain global environment (by design)
+mcp__pty__bash()  # Uses system environment, not project .env
+```
+
 ## Configuration
 
 Configuration is managed via environment variables or `config/projects.json`:
@@ -163,6 +183,23 @@ Configuration is managed via environment variables or `config/projects.json`:
   }
 }
 ```
+
+### Project Environment Files
+
+Each project can have a `.env` file in its root directory that will be automatically loaded when the project is activated:
+
+```bash
+# /var/projects/ICS/.env
+DATABASE_URL=postgresql://ics_user:password@localhost:5432/ics_db
+ICS_PROJECT_VAR=ICS_SPECIFIC_VALUE
+API_KEY=secret-key-123
+```
+
+When a project is activated:
+1. The `.env` file is loaded into memory
+2. `exec` commands receive the merged environment (system + project)
+3. PTY/bash sessions keep the global environment (architectural constraint)
+4. Switching projects automatically loads the new project's environment
 
 Environment variables:
 - `PTY_MCP_BASE_DIR` - Base directory (default: ~/.claude/mcp/pty)
@@ -210,7 +247,7 @@ python3 -c "import main; server = main.MCPServer(); print(f'{len(server.registry
 
 ## Version
 
-3.0.0 - Clean architecture with perfect dependency injection
+3.1.0 - Added dynamic project-specific environment loading for exec commands
 
 ## License
 

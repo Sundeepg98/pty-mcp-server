@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pty-mcp-server"
+version = "3.0.0"
+description = "PTY MCP Server - Terminal session management for Claude"
+authors = [{name = "Sundeep G", email = ""}]
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers"
+]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/Sundeepg98/pty-mcp-server"
+
+[project.scripts]
+pty-mcp-server = "main:main"
+
+[tool.setuptools]
+packages = ["lib", "core", "core.sessions", "plugins", "plugins.terminal", "plugins.process", "plugins.system", "plugins.network", "plugins.serial"]
+
+[tool.setuptools.package-data]
+"*" = ["*.json"]
+
+[tool.uv]
+dev-dependencies = []

@@ -19,8 +19,13 @@ import mcp.types as types
 # Import our existing modules
 from core.manager import SessionManager
 
-# Set up logging
-logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
+# Set up logging - redirect to file to avoid interfering with stdio
+# MCP servers must not output anything to stderr except actual errors
+logging.basicConfig(
+    level=logging.INFO, 
+    format='[%(levelname)s] %(message)s',
+    handlers=[logging.FileHandler('/tmp/pty-mcp.log')]
+)
 logger = logging.getLogger(__name__)
 
 # Create the MCP server instance

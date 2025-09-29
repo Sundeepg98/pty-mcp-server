@@ -133,14 +133,14 @@ async def main():
         tool_registry = ToolRegistry(session_manager)
         
         # Load all plugins from the existing architecture
-        base_dir = Path(__file__).parent
+        base_dir = Path(__file__).parent / "plugins"
         loaded_categories = tool_registry.load_all_plugins(base_dir)
         
-        total_tools = sum(loaded_categories.values())  # values are already counts
+        total_tools = sum(len(tools) for tools in loaded_categories.values())
         logger.info(f"Loaded {total_tools} tools from {len(loaded_categories)} categories")
         
-        for category, count in loaded_categories.items():
-            logger.info(f"  {category}: {count} tools")
+        for category, tools in loaded_categories.items():
+            logger.info(f"  {category}: {', '.join(tools)}")
         
         # Run the MCP server with stdio
         async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):

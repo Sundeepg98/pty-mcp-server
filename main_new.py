@@ -11,13 +11,13 @@ import logging
 from typing import Any, Dict, List, Optional
 
 # MCP SDK imports
-from mcp.server import Server, NotificationOptions
+from mcp.server import Server
 from mcp.server.models import InitializationOptions
 import mcp.server.stdio
 import mcp.types as types
 
 # Import our existing modules
-from core.manager import SessionManager
+from lib import SessionManager
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
@@ -158,38 +158,32 @@ async def main():
         async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
             logger.info("PTY MCP Server starting with proper MCP SDK...")
             
-            # Get server capabilities
-            capabilities = server.get_capabilities(
-                notification_options=NotificationOptions(),
-                experimental_capabilities={}
-            )
-            
-            # Create initialization options with capabilities
+            # Configure initialization options
             init_options = InitializationOptions(
                 server_name="pty-mcp-server",
-                server_version="4.0.0",
-                capabilities=capabilities
+                server_version="4.0.0",  # New version with MCP SDK
+                capabilities=server.get_capabilities(
+                    notification_options=None,
+                    experimental_capabilities={}
+                )
             )
             
-            # Run the server with initialization options as positional argument
+            # Run the server
             await server.run(
-                read_stream,
-                write_stream,
-                init_options
+                read_stream=read_stream,
+                write_stream=write_stream,
+                init_options=init_options
             )
             
     except KeyboardInterrupt:
         logger.info("Server shutdown requested")
     except Exception as e:
         logger.error(f"Server error: {e}")
-        import traceback
-        traceback.print_exc()
         raise
     finally:
-        # Cleanup - check if session_manager has cleanup method
+        # Cleanup
         if session_manager:
-            if hasattr(session_manager, 'cleanup'):
-                session_manager.cleanup()
+            session_manager.cleanup()
             logger.info("Cleanup complete")
 
 

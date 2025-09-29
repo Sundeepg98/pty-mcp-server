@@ -158,24 +158,14 @@ async def main():
         async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
             logger.info("PTY MCP Server starting with proper MCP SDK...")
             
-            # Get server capabilities
-            capabilities = server.get_capabilities(
-                notification_options=NotificationOptions(),
-                experimental_capabilities={}
-            )
-            
-            # Create initialization options with capabilities
-            init_options = InitializationOptions(
-                server_name="pty-mcp-server",
-                server_version="4.0.0",
-                capabilities=capabilities
-            )
-            
-            # Run the server with initialization options as positional argument
+            # Run the server (simplified - let the server handle initialization)
             await server.run(
-                read_stream,
-                write_stream,
-                init_options
+                read_stream=read_stream,
+                write_stream=write_stream,
+                InitializationOptions(
+                    server_name="pty-mcp-server",
+                    server_version="4.0.0"
+                )
             )
             
     except KeyboardInterrupt:
@@ -186,10 +176,9 @@ async def main():
         traceback.print_exc()
         raise
     finally:
-        # Cleanup - check if session_manager has cleanup method
+        # Cleanup
         if session_manager:
-            if hasattr(session_manager, 'cleanup'):
-                session_manager.cleanup()
+            session_manager.cleanup()
             logger.info("Cleanup complete")
 
 

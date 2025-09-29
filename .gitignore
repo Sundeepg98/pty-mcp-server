@@ -8,6 +8,9 @@ env/
 venv/
 .env
 .venv
+dist/
+build/
+*.egg-info/
 
 # IDE
 .vscode/
@@ -20,6 +23,7 @@ venv/
 logs/
 *.log
 .active_project
+config/projects.json
 
 # OS
 .DS_Store
@@ -35,3 +39,13 @@ htmlcov/
 *.bak
 *.backup
 *_old.py
+
+# Personal/local files
+*.local
+*.private
+personal_*
+*_personal.*
+
+# Git/GitHub
+*.orig
+.git-credentials

@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pty-mcp-server"
 version = "3.0.0"
 description = "PTY MCP Server - Terminal session management for Claude"
-authors = [{name = "Sundeep G", email = ""}]
+authors = [{name = "Sundeep G"}]
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}

@@ -21,15 +21,3 @@ dependencies = []
 
 [project.urls]
 Repository = "https://github.com/Sundeepg98/pty-mcp-server"
-
-[project.scripts]
-pty-mcp-server = "main:main"
-
-[tool.setuptools]
-packages = ["lib", "core", "core.sessions", "plugins", "plugins.terminal", "plugins.process", "plugins.system", "plugins.network", "plugins.serial"]
-
-[tool.setuptools.package-data]
-"*" = ["*.json"]
-
-[tool.uv]
-dev-dependencies = []

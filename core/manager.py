@@ -13,6 +13,7 @@ from core.sessions.process import ProcessSession
 from core.sessions.socket import SocketSession
 from core.sessions.serial import SerialSession
 from lib.config import PtyConfig
+from lib.env_manager import ProjectEnvironmentManager
 
 
 class SessionManager:
@@ -29,6 +30,9 @@ class SessionManager:
         # Project management
         self.active_project: Optional[Dict[str, str]] = None
         self.projects_config: Dict[str, Any] = {}
+        
+        # Environment manager for project-specific environments
+        self.env_manager = ProjectEnvironmentManager()
         
         # Use provided config or create default
         if config is None:

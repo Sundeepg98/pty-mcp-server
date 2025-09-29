@@ -77,14 +77,20 @@ class ExecTool(BaseTool):
             working_dir = os.getcwd()
         
         try:
-            # Execute command
+            # Get environment - use project-specific if available
+            env = None
+            if self.session_manager and hasattr(self.session_manager, 'env_manager'):
+                env = self.session_manager.env_manager.get_merged_env()
+            
+            # Execute command with project environment
             result = subprocess.run(
                 command,
                 shell=True,
                 capture_output=True,
                 text=True,
                 timeout=timeout,
-                cwd=working_dir
+                cwd=working_dir,
+                env=env  # Use project-specific environment
             )
             
             # Format output
@@ -94,6 +100,15 @@ class ExecTool(BaseTool):
                 "return_code": result.returncode,
                 "cwd": working_dir
             }
+            
+            # Add environment info if project is active
+            if self.session_manager and self.session_manager.env_manager.active_project:
+                output["environment"] = {
+                    "project": self.session_manager.env_manager.active_project,
+                    "type": "project-specific"
+                }
+            else:
+                output["environment"] = {"type": "global"}
             
             return ToolResult(
                 success=True,

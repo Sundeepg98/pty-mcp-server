@@ -79,13 +79,24 @@ class ActivateTool(BaseTool):
         }
         self.session_manager.save_active_project()
         
+        # Load project-specific environment
+        env_result = self.session_manager.env_manager.load_project_env(
+            project_name, project_path
+        )
+        
         # Change directory
         os.chdir(project_path)
         
         result = {
             "status": "success",
             "project": project_name,
-            "path": project_path
+            "path": project_path,
+            "environment": {
+                "loaded": env_result.get("success", False),
+                "env_count": env_result.get("env_count", 0),
+                "env_file": env_result.get("env_file"),
+                "note": "Environment applies to 'exec' commands only"
+            }
         }
         
         return ToolResult(

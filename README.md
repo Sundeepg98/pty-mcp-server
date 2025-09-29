@@ -1,6 +1,6 @@
 # PTY MCP Server
 
-A Model Context Protocol (MCP) server providing 32 tools for terminal, process, network, and serial communication with perfect dependency injection architecture.
+A Model Context Protocol (MCP) server providing 31 tools for terminal, process, network, and serial communication with perfect dependency injection architecture.
 
 ## Architecture
 
@@ -50,18 +50,17 @@ main.py
 - **Cross-Platform**: Works on Linux/Mac/WSL, Windows CMD accessible via WSL
 - **Clean Output**: Terminal escape sequences automatically filtered
 - **Project Support**: Switch between projects with saved state
-- **Dynamic Environment**: Project-specific .env files automatically loaded for exec commands
+- **Dynamic Environment**: Project-specific .env files automatically loaded for subprocess operations
 - **Error Handling**: Graceful degradation for missing features
 
-## Available Tools (32)
+## Available Tools (31)
 
-### System Tools (7)
+### System Tools (6)
 - `env` - Environment variable management
 - `file` - File operations (read/write/list/delete)
 - `status` - Get session status
 - `activate` - Activate a project
 - `projects` - List registered projects
-- `exec` - Execute shell commands
 - `sessions` - List all active sessions
 
 ### Terminal Tools (8)

@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "ics": "/var/projects/ICS",
+    "pty-mcp": "/var/projects/mcp-servers/pty-mcp-server",
+    "memory-service": "/var/projects/mcp-servers/memory-service",
+    "pty-refactored": "/home/sundeep/.claude/mcp/pty-refactored"
+  },
+  "default_project": null
+}

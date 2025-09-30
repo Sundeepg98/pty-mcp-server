@@ -38,3 +38,6 @@ htmlcov/
 # Local config
 .env
 .env.local
+
+# Development archives
+docs/archive/

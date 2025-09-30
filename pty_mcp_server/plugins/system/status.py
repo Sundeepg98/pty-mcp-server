@@ -5,13 +5,10 @@ Get status of active sessions and processes
 import os
 import json
 from typing import Dict, Any
-from pathlib import Path
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from lib.base import BaseTool, ToolResult
-
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 class StatusTool(BaseTool):
     """Get status of active sessions"""

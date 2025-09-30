@@ -5,14 +5,11 @@ WITH SAFETY CHECKS
 
 import os
 import json
-from pathlib import Path
 from typing import Dict, Any
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from lib.base import BaseTool, ToolResult
-
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 class FileTool(BaseTool):
     """Simple file operations with safety checks"""

@@ -4,13 +4,7 @@ PTY Disconnect tool - Terminate PTY session
 
 from typing import Dict, Any
 
-import sys
-from pathlib import Path
-# Add parent directory dynamically
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from lib.base import BaseTool, ToolResult
-
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 class DisconnectTool(BaseTool):
     """Terminate active PTY session"""

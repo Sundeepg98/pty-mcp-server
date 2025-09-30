@@ -1,6 +1,6 @@
 [project]
 name = "pty-mcp-server"
-version = "3.1.0"
+version = "4.0.0"
 description = "Model Context Protocol server for PTY, process, network, and serial communication"
 requires-python = ">=3.8"
 readme = "README.md"

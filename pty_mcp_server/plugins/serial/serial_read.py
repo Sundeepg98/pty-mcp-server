@@ -4,13 +4,7 @@ Serial Read tool - Read data from serial port
 
 from typing import Dict, Any
 
-import sys
-from pathlib import Path
-# Add parent directory dynamically
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from lib.base import BaseTool, ToolResult
-
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 class SerialReadTool(BaseTool):
     """Read data from the active serial port"""

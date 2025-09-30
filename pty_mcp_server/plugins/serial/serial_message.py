@@ -5,13 +5,7 @@ Serial Message tool - Send message and wait for response
 from typing import Dict, Any
 import time
 
-import sys
-from pathlib import Path
-# Add parent directory dynamically
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from lib.base import BaseTool, ToolResult
-
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 class SerialMessageTool(BaseTool):
     """Send message through serial and wait for prompt/response"""

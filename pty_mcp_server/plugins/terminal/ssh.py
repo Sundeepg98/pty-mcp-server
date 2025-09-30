@@ -4,13 +4,7 @@ SSH tool - SSH connections via PTY
 
 from typing import Dict, Any
 
-import sys
-from pathlib import Path
-# Add parent directory dynamically
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from lib.base import BaseTool, ToolResult
-
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 class SSHTool(BaseTool):
     """Connect to remote host via SSH"""

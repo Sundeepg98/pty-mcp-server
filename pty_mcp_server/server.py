@@ -18,9 +18,9 @@ import mcp.server.stdio
 import mcp.types as types
 
 # Import existing PTY architecture
-from .core.manager import SessionManager
-from .lib.registry import ToolRegistry
-from .lib.base import ToolResult
+from pty_mcp_server.core.manager import SessionManager
+from pty_mcp_server.lib.registry import ToolRegistry
+from pty_mcp_server.lib.base import ToolResult
 
 # Set up logging - redirect to file to avoid interfering with stdio
 logging.basicConfig(

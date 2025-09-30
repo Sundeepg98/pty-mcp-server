@@ -4,13 +4,10 @@ Clear terminal screen tool
 
 import os
 from typing import Dict, Any
-from pathlib import Path
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from lib.base import BaseTool, ToolResult
-
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 class ClearTool(BaseTool):
     """Clear the terminal screen"""

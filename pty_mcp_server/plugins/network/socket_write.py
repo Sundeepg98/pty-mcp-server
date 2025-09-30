@@ -4,13 +4,7 @@ Socket Write tool - Send data through socket
 
 from typing import Dict, Any
 
-import sys
-from pathlib import Path
-# Add parent directory dynamically
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from lib.base import BaseTool, ToolResult
-
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 class SocketWriteTool(BaseTool):
     """Send data through active socket"""

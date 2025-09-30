@@ -8,7 +8,7 @@ import inspect
 from typing import Dict, List, Optional, Type
 from pathlib import Path
 
-from .base import BaseTool, ToolResult
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 
 class ToolRegistry:
@@ -68,19 +68,30 @@ class ToolRegistry:
         if not plugin_dir.exists():
             return 0
         
-        # Add directory to Python path
+        # Detect if we're running from a package
         import sys
-        if str(plugin_dir.parent) not in sys.path:
-            sys.path.insert(0, str(plugin_dir.parent))
+        is_packaged = 'site-packages' in str(plugin_dir) or '.local' in str(plugin_dir)
         
+        if not is_packaged:
+            # Running from source - add to path for relative imports
+            if str(plugin_dir.parent) not in sys.path:
+                sys.path.insert(0, str(plugin_dir.parent))
+                        
         for py_file in plugin_dir.glob("*.py"):
             if py_file.name.startswith("_"):
                 continue  # Skip __init__.py and private files
             
             module_name = py_file.stem
             try:
-                # Import the module
-                module = importlib.import_module(f"{plugin_dir.name}.{module_name}")
+                # Import the module with correct path
+                if is_packaged:
+                    # Packaged version - use full module path
+                    import_path = f"pty_mcp_server.plugins.{plugin_dir.name}.{module_name}"
+                else:
+                    # Source version - use relative path
+                    import_path = f"{plugin_dir.name}.{module_name}"
+                
+                module = importlib.import_module(import_path)
                 
                 # Find all BaseTool subclasses
                 for name, obj in inspect.getmembers(module):
@@ -98,7 +109,7 @@ class ToolRegistry:
                             print(f"Error loading tool {name}: {e}")
             
             except Exception as e:
-                print(f"Error loading module {module_name}: {e}")
+                print(f"Error loading module {module_name} from {import_path}: {e}")
         
         return loaded_count
     

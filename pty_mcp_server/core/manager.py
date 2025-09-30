@@ -6,14 +6,13 @@ import json
 from typing import Optional, Dict, Any
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.sessions.pty import PTYSession
-from core.sessions.process import ProcessSession
-from core.sessions.socket import SocketSession
-from core.sessions.serial import SerialSession
-from lib.config import PtyConfig
-from lib.env_manager import ProjectEnvironmentManager
+from pty_mcp_server.core.sessions.pty import PTYSession
+from pty_mcp_server.core.sessions.process import ProcessSession
+from pty_mcp_server.core.sessions.socket import SocketSession
+from pty_mcp_server.core.sessions.serial import SerialSession
+from pty_mcp_server.lib.config import ProjectConfig
+from pty_mcp_server.lib.env_manager import ProjectEnvironmentManager
 
 
 class SessionManager:
@@ -36,25 +35,19 @@ class SessionManager:
         
         # Use provided config or create default
         if config is None:
-            config = PtyConfig.from_environment()
+            config = ProjectConfig.from_environment()
         self.config = config
         
         # Load configuration
-        self._load_projects_config()
-        self._load_active_project()
-    
-    def _load_projects_config(self):
-        """Load projects configuration from config object"""
-        self.projects_config = self.config.load_projects()
-    
-    def _load_active_project(self):
-        """Load active project from config"""
-        self.active_project = self.config.load_active_project()
+        self.config.load()
+        self.projects_config = self.config.projects
+        self.active_project = self.config.active_project
     
     def save_active_project(self):
         """Save active project using config"""
         if self.active_project:
-            self.config.save_active_project(self.active_project)
+            self.config.active_project = self.active_project
+            self.config.save()
     
     def get_pty_session(self) -> PTYSession:
         """Get or create PTY session"""

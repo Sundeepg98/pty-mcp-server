@@ -5,13 +5,7 @@ Process PowerShell tool - Launch Windows PowerShell
 from typing import Dict, Any
 import platform
 
-import sys
-from pathlib import Path
-# Add parent directory dynamically
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from lib.base import BaseTool, ToolResult
-
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 class ProcPsTool(BaseTool):
     """Launch Windows PowerShell as a subprocess"""

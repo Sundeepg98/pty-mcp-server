@@ -5,14 +5,11 @@ List all active sessions tool
 import json
 import os
 from typing import Dict, Any
-from pathlib import Path
 from datetime import datetime
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from lib.base import BaseTool, ToolResult
-
+from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 class SessionsTool(BaseTool):
     """List and manage sessions"""

@@ -41,3 +41,7 @@ htmlcov/
 
 # Development archives
 docs/archive/
+
+# Development test scripts
+tests/test_*.py
+tests/*.sh

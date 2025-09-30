@@ -1,0 +1,42 @@
+[project]
+name = "pty-mcp-server"
+version = "4.0.0"
+description = "Model Context Protocol server for PTY, process, network, and serial communication"
+requires-python = ">=3.8"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Sundeep G", email = "sundeepg8@gmail.com"}
+]
+keywords = ["mcp", "pty", "terminal", "ssh", "serial", "socket"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"
+]
+
+dependencies = [
+    "mcp>=1.0.0"
+]
+
+[project.optional-dependencies]
+serial = ["pyserial>=3.5"]
+
+[project.scripts]
+pty-mcp-server = "pty_mcp_server:run"
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pty_mcp_server*"]
+
+[tool.uvx]
+scripts = ["pty-mcp-server"]

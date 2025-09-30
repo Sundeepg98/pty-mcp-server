@@ -3,14 +3,16 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Python
-env/
-venv/
-.env
-.venv
+*.egg-info/
+*.egg
 dist/
 build/
-*.egg-info/
+.eggs/
+
+# Virtual Environment
+venv/
+env/
+ENV/
 
 # IDE
 .vscode/
@@ -19,33 +21,27 @@ build/
 *.swo
 *~
 
-# Project specific
-logs/
-*.log
-.active_project
-config/projects.json
-
 # OS
 .DS_Store
 Thumbs.db
 
 # Testing
-.pytest_cache/
 .coverage
+.pytest_cache/
 htmlcov/
 
-# Temporary files
-*.tmp
-*.bak
-*.backup
-*_old.py
+# MCP/PTY specific
+*.log
+.active_project
+/tmp/
 
-# Personal/local files
-*.local
-*.private
-personal_*
-*_personal.*
+# Local config
+.env
+.env.local
 
-# Git/GitHub
-*.orig
-.git-credentials
+# Development archives
+docs/archive/
+
+# Development test scripts
+tests/test_*.py
+tests/*.sh

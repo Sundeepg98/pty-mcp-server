@@ -6,7 +6,7 @@ requires-python = ">=3.8"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "Sundeep G", email = "sundeepg98@example.com"}
+    {name = "Sundeep G", email = "sundeepg8@gmail.com"}
 ]
 keywords = ["mcp", "pty", "terminal", "ssh", "serial", "socket"]
 classifiers = [

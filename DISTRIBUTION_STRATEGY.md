@@ -85,13 +85,13 @@ uv tool install pty-mcp-server
 #### Secondary: GitHub Releases
 ```bash
 # Direct from GitHub:
-uv tool install git+https://github.com/yourusername/pty-mcp-python@v4.0.0
+uv tool install git+https://github.com/Sundeepg98/pty-mcp-server@v4.0.0
 ```
 
 #### Development: Direct from source
 ```bash
 # For developers:
-git clone https://github.com/yourusername/pty-mcp-python
+git clone https://github.com/Sundeepg98/pty-mcp-server
 cd pty-mcp-python
 uv tool install --from .
 ```
@@ -142,7 +142,7 @@ uv tool install pty-mcp-server
 
 ### From Source
 ```bash
-git clone https://github.com/yourusername/pty-mcp-python
+git clone https://github.com/Sundeepg98/pty-mcp-server
 cd pty-mcp-python
 uv tool install --from .
 ```
@@ -238,8 +238,8 @@ description = "Model Context Protocol server for PTY, process, network, and seri
 authors = [{name = "Your Name", email = "your.email@example.com"}]
 license = {text = "MIT"}
 readme = "README.md"
-homepage = "https://github.com/yourusername/pty-mcp-python"
-repository = "https://github.com/yourusername/pty-mcp-python"
+homepage = "https://github.com/Sundeepg98/pty-mcp-server"
+repository = "https://github.com/Sundeepg98/pty-mcp-server"
 keywords = ["mcp", "pty", "terminal", "ssh", "serial", "claude"]
 classifiers = [
     "Development Status :: 4 - Beta",

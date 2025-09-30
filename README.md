@@ -25,8 +25,8 @@ uv tool install pty-mcp-server
 
 ### From Source
 ```bash
-git clone https://github.com/yourusername/pty-mcp-python
-cd pty-mcp-python
+git clone https://github.com/Sundeepg98/pty-mcp-server
+cd pty-mcp-server
 uv tool install .
 ```
 
@@ -228,7 +228,7 @@ MIT License - See LICENSE file for details
 
 ## 🔗 Links
 
-- [GitHub Repository](https://github.com/yourusername/pty-mcp-python)
+- [GitHub Repository](https://github.com/Sundeepg98/pty-mcp-server)
 - [PyPI Package](https://pypi.org/project/pty-mcp-server/)
 - [MCP Documentation](https://modelcontextprotocol.org)
 

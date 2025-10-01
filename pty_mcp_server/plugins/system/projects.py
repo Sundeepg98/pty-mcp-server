@@ -39,8 +39,8 @@ class ProjectsTool(BaseTool):
                 error="No session manager available"
             )
         
-        projects = self.session_manager.projects_config.get("projects", {})
-        default_project = self.session_manager.projects_config.get("default_project")
+        projects = self.session_manager.projects_config
+        default_project = self.session_manager.config.default_project
         active = self.session_manager.active_project
         
         result = {

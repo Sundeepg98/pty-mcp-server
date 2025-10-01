@@ -46,7 +46,7 @@ class ActivateTool(BaseTool):
             )
         
         project_name = arguments.get("project_name")
-        projects = self.session_manager.projects_config.get("projects", {})
+        projects = self.session_manager.projects_config
         
         if project_name not in projects:
             available = ", ".join(projects.keys())

@@ -8,6 +8,7 @@ import sys
 import json
 import asyncio
 import logging
+import tempfile
 from typing import Any, Dict, List, Optional
 from pathlib import Path
 
@@ -23,10 +24,12 @@ from pty_mcp_server.lib.registry import ToolRegistry
 from pty_mcp_server.lib.base import ToolResult
 
 # Set up logging - redirect to file to avoid interfering with stdio
+# Use cross-platform temp directory
+log_path = os.path.join(tempfile.gettempdir(), 'pty-mcp.log')
 logging.basicConfig(
-    level=logging.INFO, 
+    level=logging.INFO,
     format='[%(levelname)s] %(message)s',
-    handlers=[logging.FileHandler('/tmp/pty-mcp.log')]
+    handlers=[logging.FileHandler(log_path)]
 )
 logger = logging.getLogger(__name__)
 

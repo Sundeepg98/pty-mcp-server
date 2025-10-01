@@ -41,12 +41,23 @@ class SessionManager:
         # Load configuration
         self.config.load()
         self.projects_config = self.config.projects
-        self.active_project = self.config.active_project
+
+        # Convert loaded project name to dict format
+        if self.config.active_project and self.config.active_project in self.projects_config:
+            project_name = self.config.active_project
+            self.active_project = {
+                "name": project_name,
+                "path": self.projects_config[project_name]
+            }
+        else:
+            self.active_project = None
     
     def save_active_project(self):
         """Save active project using config"""
         if self.active_project:
-            self.config.active_project = self.active_project
+            # Save only the project name (string), not the full dict
+            project_name = self.active_project.get("name") if isinstance(self.active_project, dict) else self.active_project
+            self.config.active_project = project_name
             self.config.save()
     
     def get_pty_session(self) -> PTYSession:

@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from pty_mcp_server.core.manager import SessionManager
 from pty_mcp_server.lib.registry import ToolRegistry
 
-def test_tmux_integration():
+def test_tmux_integration(session_manager, tool_registry, base_dir):
     """Test that tmux tools are loaded and functional"""
 
     print("="*60)
@@ -21,7 +21,6 @@ def test_tmux_integration():
 
     # 1. Test SessionManager has tmux_manager
     print("\n1. Testing SessionManager...")
-    session_manager = SessionManager()
 
     # Verify tmux_manager attribute exists
     assert hasattr(session_manager, 'tmux_manager'), "SessionManager missing tmux_manager"
@@ -34,10 +33,8 @@ def test_tmux_integration():
 
     # 2. Test tool registry loads tmux tools
     print("\n2. Testing tool registry...")
-    tool_registry = ToolRegistry(session_manager)
 
     # Load all plugins
-    base_dir = Path(__file__).parent / "pty_mcp_server"
     loaded = tool_registry.load_all_plugins(str(base_dir))
 
     print(f"   Loaded tools by category:")

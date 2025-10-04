@@ -13,17 +13,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 from pty_mcp_server.core.manager import SessionManager
 from pty_mcp_server.lib.registry import ToolRegistry
 
-def test_tmux_functionality():
+def test_tmux_functionality(session_manager, tool_registry, base_dir):
     """Test actual tmux operations"""
 
     print("="*60)
     print("Functional test for tmux tools")
     print("="*60)
 
-    # Setup
-    session_manager = SessionManager()
-    tool_registry = ToolRegistry(session_manager)
-    base_dir = Path(__file__).parent / "pty_mcp_server"
+    # Load plugins
     tool_registry.load_all_plugins(str(base_dir))
 
     test_session = "test-integration"

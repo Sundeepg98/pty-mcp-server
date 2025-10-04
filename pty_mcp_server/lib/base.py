@@ -1,5 +1,23 @@
 """
-Base classes for PTY MCP tools
+Base Tool Interface - Application Layer (DDD)
+
+This module defines BaseTool, the abstract interface that all MCP tools implement.
+
+Domain-Driven Design (DDD) Role:
+    - **Layer**: Application Layer (lib/)
+    - **Pattern**: Interface Definition
+    - **Responsibility**: Defines tool contract and standard responses
+
+BaseTool serves as the common interface between:
+    - Domain Layer (SessionManager)
+    - Interface Layer (37 tool implementations in plugins/)
+    - Infrastructure Layer (MCP protocol in server.py)
+
+Key Features:
+    - 100% Dependency Injection (receives SessionManager via constructor)
+    - Standard ToolResult format for all tools
+    - MCP protocol conversion (to_mcp_definition, to_mcp_response)
+    - Input validation against JSON Schema
 """
 
 from abc import ABC, abstractmethod
@@ -35,14 +53,50 @@ class ToolResult:
 
 
 class BaseTool(ABC):
-    """Abstract base class for all MCP tools"""
-    
+    """
+    Abstract base class for all MCP tools (Interface Layer)
+
+    **DDD Architecture**:
+    - **Type**: Interface Definition (contract for all tools)
+    - **Implemented By**: 37 tool classes in plugins/ directory
+    - **Receives**: SessionManager via constructor (Dependency Injection)
+
+    **100% Dependency Injection Pattern**:
+    All tools receive SessionManager through constructor injection:
+
+    Example:
+        >>> class MyTool(BaseTool):
+        ...     def __init__(self, session_manager=None):
+        ...         super().__init__(session_manager)  # DI
+        ...
+        ...     def execute(self, arguments):
+        ...         manager = self.session_manager.get_pty_session()
+        ...         return ToolResult(...)
+
+    **Tool Contract**:
+    Subclasses must implement:
+        - name: Tool identifier
+        - description: Human-readable description
+        - category: Tool category (terminal, process, network, etc.)
+        - input_schema: JSON Schema for parameters
+        - execute(arguments): Main tool logic
+
+    **Standard Response**:
+    All tools return ToolResult, converted to MCP protocol via to_mcp_response()
+    """
+
     def __init__(self, session_manager=None):
         """
-        Initialize tool with optional session manager
-        
+        Initialize tool with dependency injection
+
         Args:
-            session_manager: Shared session manager for stateful tools
+            session_manager (SessionManager, optional): Domain service injected
+                by ToolRegistry during tool instantiation. Provides access to
+                all session types (PTY, process, socket, serial, tmux).
+
+        Note:
+            This constructor enables 100% Dependency Injection pattern.
+            Tools NEVER create SessionManager - it's injected by ToolRegistry.
         """
         self.session_manager = session_manager
     

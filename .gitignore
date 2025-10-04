@@ -42,6 +42,7 @@ htmlcov/
 # Development archives
 docs/archive/
 
-# Development test scripts
-tests/test_*.py
+# Development test scripts (removed - we want to commit tests now)
+# tests/test_*.py  - REMOVED to allow proper test suite
+# tests/*.sh       - Keep shell scripts for manual testing only
 tests/*.sh

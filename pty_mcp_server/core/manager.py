@@ -11,6 +11,7 @@ from pty_mcp_server.core.sessions.pty import PTYSession
 from pty_mcp_server.core.sessions.process import ProcessSession
 from pty_mcp_server.core.sessions.socket import SocketSession
 from pty_mcp_server.core.sessions.serial import SerialSession
+from pty_mcp_server.core.sessions.tmux import TmuxSessionManager
 from pty_mcp_server.lib.config import ProjectConfig
 from pty_mcp_server.lib.env_manager import ProjectEnvironmentManager
 
@@ -25,11 +26,14 @@ class SessionManager:
         self.proc_session: Optional[ProcessSession] = None
         self.socket_session: Optional[SocketSession] = None
         self.serial_session: Optional[SerialSession] = None
-        
+
+        # Tmux session manager - supports multiple named sessions
+        self.tmux_manager: Optional[TmuxSessionManager] = None
+
         # Project management
         self.active_project: Optional[Dict[str, str]] = None
         self.projects_config: Dict[str, Any] = {}
-        
+
         # Environment manager for project-specific environments
         self.env_manager = ProjectEnvironmentManager()
         
@@ -83,7 +87,13 @@ class SessionManager:
         if not self.serial_session:
             self.serial_session = SerialSession()
         return self.serial_session
-    
+
+    def get_tmux_manager(self) -> TmuxSessionManager:
+        """Get or create tmux session manager"""
+        if not self.tmux_manager:
+            self.tmux_manager = TmuxSessionManager()
+        return self.tmux_manager
+
     def cleanup_all(self):
         """Clean up all sessions"""
         if self.pty_session:
@@ -94,3 +104,5 @@ class SessionManager:
             self.socket_session.close()
         if self.serial_session:
             self.serial_session.close()
+        if self.tmux_manager:
+            self.tmux_manager.cleanup_all()

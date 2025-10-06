@@ -51,7 +51,7 @@ Add to your Claude configuration (`~/.claude.json`):
 echo '{"jsonrpc":"2.0","method":"initialize","id":1}' | pty-mcp-server
 ```
 
-## 🛠️ Available Tools (31)
+## 🛠️ Available Tools (37)
 
 ### System Tools (6)
 - `env` - Environment variable management
@@ -93,6 +93,14 @@ echo '{"jsonrpc":"2.0","method":"initialize","id":1}' | pty-mcp-server
 - `serial-read` - Read from serial port
 - `serial-write` - Write to serial port
 - `serial-message` - Send message, wait for response
+
+### Tmux Tools (6)
+- `tmux-start` - Start new tmux session
+- `tmux-list` - List all tmux sessions
+- `tmux-send` - Send commands to session
+- `tmux-capture` - Capture session output
+- `tmux-attach` - Get attach command for manual access
+- `tmux-kill` - Kill tmux session
 
 ## 📚 Usage Examples
 
@@ -220,7 +228,7 @@ MIT License - See LICENSE file for details
 
 ## 🔖 Version History
 
-- **v4.0.0** - Package distribution, removed exec tool, 31 secure tools
+- **v4.0.0** - Package distribution, removed exec tool, tmux integration, 37 secure tools
 - **v3.1.0** - Added dynamic environment loading
 - **v3.0.0** - MCP SDK integration
 - **v2.0.0** - Plugin architecture

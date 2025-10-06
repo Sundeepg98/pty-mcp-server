@@ -193,7 +193,7 @@ class TmuxStartTool(BaseTool):
 Run comprehensive integration tests:
 
 ```bash
-python3 test_tmux_integration.py
+pytest tests/integration/test_tmux_integration.py
 ```
 
 **Tests:**
@@ -208,7 +208,7 @@ python3 test_tmux_integration.py
 Run functional tests with real tmux operations:
 
 ```bash
-python3 test_tmux_functional.py
+pytest tests/functional/test_tmux_functional.py
 ```
 
 **Tests:**

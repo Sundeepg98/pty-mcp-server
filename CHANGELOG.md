@@ -8,15 +8,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [4.0.0] - 2025-09-30
 
 ### Added
+- **Tmux Integration** - 6 new tools for multi-session management (37 tools total)
+  - `tmux-start` - Start new tmux session
+  - `tmux-list` - List all tmux sessions
+  - `tmux-send` - Send commands to session
+  - `tmux-capture` - Capture session output
+  - `tmux-attach` - Get attach command for manual access
+  - `tmux-kill` - Kill tmux session
 - Full Python package structure for pip/uv distribution
-- XDG-compliant configuration paths  
+- XDG-compliant configuration paths
 - Package namespace imports (`pty_mcp_server.*`)
-- Automated test suite
+- Automated test suite (unit/integration/functional)
 - PyPI distribution support
 - Proper entry point: `pty-mcp-server` command
 - Professional README for PyPI
 
 ### Changed
+- **Domain-Driven Design (DDD) Architecture** - Clean separation of concerns
+  - Domain layer: `core/` (SessionManager, session entities)
+  - Application layer: `lib/` (ToolRegistry, config)
+  - Interface layer: `plugins/` (37 MCP tools)
+  - 100% dependency injection throughout
 - Complete refactoring from source-based to package-based architecture
 - Configuration paths now use XDG base directories
 - All imports converted to package namespace
@@ -30,10 +42,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cleaned up duplicate source files (120+ duplicates)
 - Removed backup directories
 - Removed old refactoring scripts
+- Removed verbose DDD documentation per user preference
 
 ### Fixed
 - Plugin loading in packaged environment (was loading 0 tools)
-- Import paths for all 31 tools
+- Import paths for all 37 tools
 - Configuration class naming (PtyConfig → ProjectConfig)
 - State persistence in package environment
 
@@ -84,8 +97,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive README with architecture documentation
 
 ### Tools
-- All 32 tools working properly
-- Categories: system (7), terminal (8), process (6), network (6), serial (5)
+- All tools working properly
+- Categories: system (6), terminal (8), process (6), network (6), serial (5)
 
 ## [2.0.0] - 2025-09-28
 

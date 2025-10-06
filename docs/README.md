@@ -14,7 +14,3 @@ PTY MCP Server provides 37 tools for terminal, process, network, serial, and tmu
 ## Testing
 
 See `tests/README.md` for testing guidelines.
-
-## Archive
-
-Historical reports and analysis available in `archive/`.

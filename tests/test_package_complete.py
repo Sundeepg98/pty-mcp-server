@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Comprehensive test suite for the refactored PTY MCP Server package
-Tests all 31 tools to ensure they load and work properly
+Tests all 37 tools to ensure they load and work properly
 """
 
 import json
@@ -179,8 +179,8 @@ proc.terminate()
         
         print(f"Tools loaded: {tool_count}")
         
-        if tool_count == 31:
-            print(f"✅ All 31 tools loaded successfully")
+        if tool_count == 37:
+            print(f"✅ All 37 tools loaded successfully")
             
             # List tools by category
             categories = {
@@ -198,7 +198,7 @@ proc.terminate()
             
             return True, tool_count
         else:
-            print(f"❌ Expected 31 tools, got {tool_count}")
+            print(f"❌ Expected 37 tools, got {tool_count}")
             if tools:
                 print(f"   Tools found: {', '.join(tools[:10])}...")
             return False, tool_count

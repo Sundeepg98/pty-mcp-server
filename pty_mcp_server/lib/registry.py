@@ -1,24 +1,5 @@
 """
-Tool Registry - Application Service (DDD)
-
-This module implements ToolRegistry, the Application Service responsible for
-plugin discovery, instantiation, and management.
-
-Domain-Driven Design (DDD) Role:
-    - **Layer**: Application Layer (lib/)
-    - **Pattern**: Application Service + Factory Pattern
-    - **Responsibility**: Tool lifecycle and plugin coordination
-
-ToolRegistry serves as the bridge between:
-    - Domain Layer (SessionManager) - Receives via constructor
-    - Interface Layer (37 tool plugins) - Discovers and instantiates
-    - Infrastructure Layer (MCP protocol) - Provides tool definitions
-
-Key Features:
-    - **Dynamic Plugin Discovery**: Scans plugins/ directory at runtime
-    - **Factory Pattern**: Creates tool instances with DI
-    - **100% Dependency Injection**: Injects SessionManager into all tools
-    - **Category Organization**: Manages 6 tool categories
+Tool Registry for dynamic plugin management
 """
 
 import os
@@ -31,53 +12,10 @@ from pty_mcp_server.lib.base import BaseTool, ToolResult
 
 
 class ToolRegistry:
-    """
-    Application Service - Tool lifecycle manager with dynamic plugin discovery
-
-    **DDD Architecture**:
-    - **Type**: Application Service (orchestrates use cases)
-    - **Receives**: SessionManager via constructor (Dependency Injection)
-    - **Creates**: All 37 tool instances with DI
-    - **Provides**: Tool definitions to MCP protocol layer
-
-    **Factory Pattern with 100% DI**:
-    ToolRegistry implements the Factory Pattern to ensure all tools receive
-    SessionManager via constructor injection:
-
-    Flow:
-        1. server.py creates SessionManager
-        2. server.py creates ToolRegistry(session_manager) ← DI here
-        3. ToolRegistry.load_all_plugins() discovers tool classes
-        4. For each tool class: tool = ToolClass(self.session_manager) ← DI here
-        5. All 37 tools now have access to SessionManager
-
-    **Plugin Categories**:
-    - terminal (8 tools): PTY, SSH, telnet operations
-    - process (6 tools): Subprocess management
-    - network (6 tools): Socket operations
-    - serial (5 tools): Serial port communication
-    - system (6 tools): Environment, file, status
-    - tmux (6 tools): Multi-session management
-
-    Example:
-        >>> session_manager = SessionManager()
-        >>> tool_registry = ToolRegistry(session_manager)
-        >>> loaded = tool_registry.load_all_plugins("pty_mcp_server")
-        >>> # All 37 tools now loaded with session_manager injected
-    """
+    """Registry for dynamically loading and managing tool plugins"""
 
     def __init__(self, session_manager=None):
-        """
-        Initialize ToolRegistry with SessionManager dependency
-
-        Args:
-            session_manager (SessionManager, optional): Domain service to inject
-                into all tool instances. Created in server.py and injected here.
-
-        Note:
-            **This is the centralized DI injection point.**
-            All tools created by this registry receive this SessionManager instance.
-        """
+        """Initialize registry with session manager (injected into all tools)"""
         self._tools: Dict[str, BaseTool] = {}
         self._categories: Dict[str, List[str]] = {}
         self.session_manager = session_manager
@@ -99,22 +37,8 @@ class ToolRegistry:
             self._categories[category].append(tool.name)
     
     def register_class(self, tool_class: Type[BaseTool]) -> None:
-        """
-        Register a tool class with Dependency Injection (Factory Pattern)
-
-        Args:
-            tool_class (Type[BaseTool]): Tool class to instantiate
-
-        This method implements the Factory Pattern:
-            1. Creates tool instance: tool_class(self.session_manager)
-            2. Injects SessionManager via constructor ← **DI happens here**
-            3. Registers the instantiated tool
-
-        Example:
-            >>> registry.register_class(TmuxStartTool)
-            >>> # TmuxStartTool now has session_manager injected
-        """
-        tool_instance = tool_class(self.session_manager)  # ← DI injection point
+        """Register a tool class (instantiates with session manager)"""
+        tool_instance = tool_class(self.session_manager)
         self.register(tool_instance)
     
     def load_from_directory(self, directory: str, category: str = None) -> int:
